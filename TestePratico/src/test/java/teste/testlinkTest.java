@@ -24,7 +24,7 @@ public class testlinkTest {
         //definindo timeout para garantir o carregamento da pagina antes da execucao do comendo
         navegador.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         //Maximizar janela
-//        navegador.manage().window().maximize();
+        navegador.manage().window().maximize();
         //navegando para a pagina
         navegador.get("https://testlink.org/");
     }
@@ -53,12 +53,18 @@ public class testlinkTest {
 
         //Bonus
         //realizar uma pesquisa no github
+        WebElement form = navegador.findElement(By.xpath("//form[@data-scope-id=\"27990640\"]"));
+
+        form.findElement(By.xpath("//input[@name=\"q\"]")).sendKeys("flutter/flutter");
+        form.findElement(By.id("jump-to-suggestion-search-global")).click();
+
+        navegador.findElement(By.linkText("flutter/flutter")).click();
         //validar resultado
     }
 
     @After
     public void tearDown(){
         //fechando todas as guias abertas do navegador
-        navegador.quit();
+//        navegador.quit();
     }
 }
