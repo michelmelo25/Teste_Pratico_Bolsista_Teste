@@ -36,6 +36,7 @@ public class testlinkTest {
         // Verificando se esta na pagina do testlink
         Assert.assertEquals("TestLink",title.getText());
         // Realizar mais alguns Assertions
+
         // Clicar no link para o github do testLink
         navegador.findElement(By.className("col-lg-6")).findElement(By.linkText("Access Git Repository (GitHub)")).click();
 
@@ -53,18 +54,30 @@ public class testlinkTest {
 
         //Bonus
         //realizar uma pesquisa no github
+        //capturando form de perquisa
         WebElement form = navegador.findElement(By.xpath("//form[@data-scope-id=\"27990640\"]"));
-
+        //escrevendo palavra chave no campo de pesquisa
         form.findElement(By.xpath("//input[@name=\"q\"]")).sendKeys("flutter/flutter");
+        //selecionando a opcao de pesquisa global no github e acionando o evento
         form.findElement(By.id("jump-to-suggestion-search-global")).click();
-
+        //selecionando a opcao do repositorio oficial do flutter
         navegador.findElement(By.linkText("flutter/flutter")).click();
+
         //validar resultado
+        // capturando div mais proxima com id, reduzindo a variedade de nomeclaturas a serem pesquisadas
+        // como className
+        WebElement divFlutterRepo = navegador.findElement(By.id("repository-container-header"));
+        //obtendo identificacao do proprietario do repositorio
+        WebElement repositoryMaster = divFlutterRepo.findElement(By.linkText("flutter"));
+        //obtendo nome do repositorio com uma busca conjunta entre xpath e linktext
+        // para garantir que nao esta obtendo o mesmo valor do proprietario do repositorio
+        WebElement repositoryTitle = divFlutterRepo.findElement(By.xpath("//strong[@class=\"mr-2 flex-self-stretch\"]")).findElement(By.linkText("flutter"));
+        Assert.assertEquals("flutter/flutter",repositoryMaster.getText()+"/"+repositoryTitle.getText());
     }
 
     @After
     public void tearDown(){
         //fechando todas as guias abertas do navegador
-//        navegador.quit();
+        navegador.quit();
     }
 }
