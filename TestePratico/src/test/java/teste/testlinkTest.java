@@ -36,6 +36,8 @@ public class testlinkTest {
         // Verificando se esta na pagina do testlink
         Assert.assertEquals("TestLink",title.getText());
         // Realizar mais alguns Assertions
+        WebElement h1Title = navegador.findElement(By.className("jumbotron"));
+        Assert.assertEquals("TestLink Open Source Test Management",h1Title.getText());
 
         // Clicar no link para o github do testLink
         navegador.findElement(By.className("col-lg-6")).findElement(By.linkText("Access Git Repository (GitHub)")).click();
